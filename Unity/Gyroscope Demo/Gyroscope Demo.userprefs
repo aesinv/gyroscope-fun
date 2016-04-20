@@ -1,9 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Logger/PhoneController.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GyroscopeController.js">
     <Files>
-      <File FileName="Assets/Logger/PhoneController.js" Line="90" Column="35" />
+      <File FileName="Assets/Scripts/GyroscopeController.js" Line="67" Column="2" />
+      <File FileName="Assets/Logger/PhoneController.js" Line="46" Column="24" />
       <File FileName="Assets/Logger/CameraController.js" Line="1" Column="1" />
+      <File FileName="Assets/Roll-a-ball/Player/PlayerController.js" Line="108" Column="2" />
+      <File FileName="Assets/Logger/GyroLogger.js" Line="21" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<title>Tilt-based scrolling</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+  </head>
+  <body>
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container">
+			<h1 class="display-3">Tilt-based scrolling</h1>
+			<p class="lead">Using a phone or other gyroscope-enabled device, try tilting your phone forward to scroll down the page.</p>
+		</div>
+	</div>
+
+	<div class="container">
+		<blockquote class="blockquote">
+			<p class="m-b-0 lead">Gyroscopes are pretty rad, dude.</p>
+			<footer class="blockquote-footer">George Washington in <cite title="The Great Gyroscope Address">The Great Gyroscope Address</cite>, circa 1757</footer>
+		</blockquote>
+		<h2>What's going on here?</h2>
+		<p><em>Tl;dr:</em> We're accessing your the <code>accelerationIncludingGravity</code> property of your devices gyroscope and translating it's <code>z</code> coordinate to scroll the document.
+		</p>
+
+		<p>When accessing gyroscope data from the browser for the purpose of providing a constant force on an object (in this case, the window), we put our focus on device <em>acceleration</em> as it provides an. The title is slightly misleading</p>
+
+
+		<nav>
+		<h2>Other Examples</h2>
+			<h3>Unity</h3>
+			<ul class="nav nav-pills nav-stacked">
+	  			<li class="nav-item">
+	  				<a href="#" class="nav-link">Tilt-based roll-a-ball</a>
+	  			</li>
+	  			<li class="nav-item">
+	  				<a href="#" class="nav-link">360-Degree Point-of-view</a>
+	  			</li>
+	  		</ul>
+			<h3>Browser</h3>
+	  		<ul class="nav nav-pills nav-stacked">
+	  			<li class="nav-item">
+	  				<a href="#" class="nav-link">Gyroscope Data Logger</a>
+	  			</li>
+	  			<li class="nav-item">
+	  				<a href="#" class="nav-link">Tilt-Activated Page Scrolling</a>
+	  			</li>
+	  			<li class="nav-item">
+	  				<a href="#" class="nav-link">Tilt-Controlled Carousel</a>
+	  			</li>
+	  			<li class="nav-item">
+	  				<a href="#" class="nav-link">360-Gif</a>
+	  			</li>
+	  		</ul>
+	  	</nav>
+  	</div>
+
+<!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script> -->
+    <script src="../scrolling.js"></script>
+  </body>
+</html>

@@ -45,13 +45,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\LoadSceneOnClick.js" />
-     <Compile Include="Assets\LoadingController.js" />
-     <Compile Include="Assets\Logger\CameraController.js" />
-     <Compile Include="Assets\Logger\GyroLogger.js" />
-     <Compile Include="Assets\Logger\PhoneController.js" />
      <Compile Include="Assets\Roll-a-ball\Player\PlayerController.js" />
      <Compile Include="Assets\Roll-a-ball\PlayerCamController.js" />
+     <Compile Include="Assets\Scripts\CameraController.js" />
+     <Compile Include="Assets\Scripts\GyroLogger.js" />
+     <Compile Include="Assets\Scripts\GyroscopeController.js" />
+     <Compile Include="Assets\Scripts\LoadSceneOnClick.js" />
+     <Compile Include="Assets\Scripts\LoadingController.js" />
+     <Compile Include="Assets\Scripts\PhoneController.js" />
      <None Include="Assets\ProCore\ProBuilder\Shader\pb_TransparentOverlay.shader" />
      <None Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\README.txt" />
      <None Include="Assets\ProCore\ProBuilder\About\changelog.txt" />

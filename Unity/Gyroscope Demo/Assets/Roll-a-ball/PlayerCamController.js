@@ -3,6 +3,7 @@
 public var playerObj : GameObject;
 
 private var playerCtrl : PlayerController;
+private var gyroscope : GyroscopeController;
 private var cameraOffset : Vector3;
 
 // Configurable Constants
@@ -12,6 +13,7 @@ public var cameraTilt : float;
 // Store our Player Controller and dictate our camera offset
 function Start () {
 	playerCtrl = playerObj.GetComponent(PlayerController);
+	gyroscope = playerObj.GetComponent(GyroscopeController);
 	cameraOffset = transform.position - playerObj.transform.position;
 	transform.rotation = Quaternion.Euler(27.0f, 0.0f, 0.0f);
 }
@@ -32,9 +34,9 @@ function LateUpdate () {
 	var horizontalVelocity : float;
 	var verticalVelocity : float;
 	if (playerCtrl.useGyro) {
-		var gyroInput : Vector3 = playerCtrl.getGyroInput();
-		horizontalVelocity = gyroInput.x;
-		verticalVelocity = gyroInput.z;
+		var gyroInput : GyroInputAxis = gyroscope.getDevicePosition();
+		horizontalVelocity = gyroInput.horizontal;
+		verticalVelocity = gyroInput.vertical;
 	} else {
 		horizontalVelocity = Input.GetAxis('Horizontal');
 		verticalVelocity = Input.GetAxis('Vertical');
