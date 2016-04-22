@@ -7,12 +7,72 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <style>
+    	/* One day I'll move these into their own file */
+    	body {
+    		padding-bottom: 100px;
+    	}
+
+		#controller {
+		  position: fixed;
+		  bottom: 0;
+		  left: 0;
+		  display: table;
+		  width: 100%;
+		}
+
+		#toggleScrolling, #resetOrigin {
+		  display: table-cell;
+		  height: 75px;
+		  width: 50%;
+		  border: 0;
+		  box-shadow: 0;
+		  color: #fff;
+		}
+
+		#toggleScrolling {
+		  background: #5bc0de;
+		}
+
+		#resetOrigin {
+		  background: #d9534f;
+		}
+
+		.jumbotron+.jumbotron {
+			margin-top: -2rem;
+			-webkit-font-smoothing: antialised;
+		}
+
+		.jumbotron .blockquote {
+			border-left-color: #5bc0de;
+		}
+
+		.jumbotron .blockquote .m-b-0 {
+			font-size: 1.375rem;
+			font-weight: 300;
+		}
+
+		.jumbotron .blockquote-footer {
+			color: #ececec;
+			font-weight: 300;
+			font-size: 75%;
+		}
+    </style>
   </head>
   <body>
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
 			<h1 class="display-3">Gyroscope Fun</h1>
 			<p class="lead">A small collection of demos featuring the gyroscope.</p>
+		</div>
+	</div>
+
+	<div class="jumbotron jumbotron-fluid bg-primary">
+		<div class="container">
+			<blockquote class="blockquote">
+				<p class="m-b-0 lead">I'm kinda digging these gyroscope things.</p>
+				<footer class="blockquote-footer">Zues, <cite title="The Great Gyroscope Address">overheard during a press conference at the base of Mount Olympus</cite></footer>
+			</blockquote>
 		</div>
 	</div>
 
