@@ -7,6 +7,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
+    <style>
+    	/* One day I'll move these into their own file */
+    	body {
+    		padding-bottom: 100px;
+    	}
+
+		#controller {
+		  position: fixed;
+		  bottom: 0;
+		  left: 0;
+		  display: table;
+		  width: 100%;
+		}
+
+		#toggleScrolling, #resetOrigin {
+		  display: table-cell;
+		  height: 75px;
+		  width: 50%;
+		  border: 0;
+		  box-shadow: 0;
+		  color: #fff;
+		}
+
+		#toggleScrolling {
+		  background: #5bc0de;
+		}
+
+		#resetOrigin {
+		  background: #d9534f;
+		}
+
+		.jumbotron+.jumbotron {
+			margin-top: -2rem;
+			-webkit-font-smoothing: antialised;
+		}
+
+		.jumbotron .blockquote {
+			border-left-color: #5bc0de;
+		}
+
+		.jumbotron .blockquote .m-b-0 {
+			font-size: 1.375rem;
+			font-weight: 100;
+		}
+
+		.jumbotron .blockquote-footer {
+			color: #ececec;
+			font-weight: 100;
+			font-size: 75%;
+		}
+    </style>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
   </head>
@@ -18,11 +70,16 @@
 		</div>
 	</div>
 
+	<div class="jumbotron jumbotron-fluid bg-primary">
+		<div class="container">
+			<blockquote class="blockquote">
+				<p class="m-b-0 lead">Gyroscopes are pretty rad, dude.</p>
+				<footer class="blockquote-footer">George Washington in <cite title="The Great Gyroscope Address">The Great Gyroscope Address</cite>, circa 1757</footer>
+			</blockquote>
+		</div>
+	</div>
+
 	<div class="container">
-		<blockquote class="blockquote">
-			<p class="m-b-0 lead">Gyroscopes are pretty rad, dude.</p>
-			<footer class="blockquote-footer">George Washington in <cite title="The Great Gyroscope Address">The Great Gyroscope Address</cite>, circa 1757</footer>
-		</blockquote>
 		<h2>What's going on here?</h2>
 		<p><em>Tl;dr:</em> We're accessing your the <code>accelerationIncludingGravity</code> property of your devices gyroscope and translating it's <code>z</code> coordinate to scroll the document.
 		</p>
@@ -58,8 +115,15 @@
 	  	</nav>
   	</div>
 
-<!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script> -->
+  	<div id="controller">
+	  <button id="toggleScrolling" value="false">
+	    Gyroscope On
+	  </button>
+	  <button id="resetOrigin">
+	    Reset Origin
+	  </button>
+	</div>
+
     <script src="../scrolling.js"></script>
   </body>
 </html>
