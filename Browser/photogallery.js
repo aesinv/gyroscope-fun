@@ -52,10 +52,6 @@
   function handleMotion(event) {
     var rotation  = event.rotationRate;
     
-    // document.getElementById('alpha').innerText =  Math.round(rotation.alpha);
-    // document.getElementById('beta').innerText = Math.round(rotation.beta);
-    // document.getElementById('gamma').innerText = Math.round(rotation.gamma);
-    
     if (!cooldown) {
       console.log('[', Math.round(rotation.alpha), ',', Math.round(rotation.beta), ',', Math.round(rotation.gamma), ']');
 
