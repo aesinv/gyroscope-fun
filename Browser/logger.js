@@ -1,7 +1,6 @@
 (function (document, window) {
   var state = {};
   var els = {
-    type : document.getElementById("eventType"),
     acceleration : document.getElementById("acceleration"),
     gravity : document.getElementById("gravity"),
     rotation : document.getElementById("rotationRate"),
@@ -37,7 +36,6 @@
   }
 
   function handleMotion(event) {
-    state.type          = event.type;
     state.acceleration  = event.acceleration;
     state.gravity       = event.accelerationIncludingGravity;
     state.rotation      = event.rotationRate;
