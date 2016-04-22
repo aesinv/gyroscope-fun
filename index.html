@@ -30,6 +30,13 @@
 		  color: #fff;
 		}
 
+		img {
+			display: block;
+			width: 100%;
+			max-width: 400px;
+			margin: 0 auto;
+		}
+
 		#toggleScrolling {
 		  background: #5bc0de;
 		}
@@ -62,8 +69,8 @@
   <body>
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
-			<h1 class="display-3">Gyroscope Fun</h1>
-			<p class="lead">A small collection of demos featuring the gyroscope.</p>
+			<h1 class="display-4">Gyroscope / Accelerometer Fun</h1>
+			<p class="lead">A small collection of demos that use the built in gyroscope/accelerometer to make the user think you're a magician.</p>
 		</div>
 	</div>
 
@@ -77,6 +84,71 @@
 	</div>
 
 	<div class="container">
+	<h2>
+		<h2>What are gyros?</h2>
+		<p><img src="http://wallysgyro.com/wp-content/uploads/2013/12/gyro.jpg" /></p>
+
+		<h2>But what are gyroscopes and accelerometers?</h2>
+		<p>Sensors inside of most mobile devices that measure device acceleration and rotation in 3d space. Tapping into these allows us to provide functionality that directly correlates to how the user is handling their device.</p>
+
+		<h3>What can do this wizardry?</h3>
+		<p>Most modern mobile devices, however it's still experimental and the data provided by the sensors can vary greatly between devices/browsers.</p>
+
+		<p><strong>Mobile browser support as per <a href="https://developer.mozilla.org/en-US/docs/Web/API/Detecting_device_orientation" target="_blank">MDN</a>:</strong></p>
+		<ul>
+			<li><strong>Android:</strong> 3.0+</li>
+			<li><strong>Safari/iPhone:</strong> 4.2+</li>
+			<li><strong>Firefox Mobile:</strong> 3.6+ (mozOrientation), 6.0+ (standard deviceorientation)</li>
+			<li><strong>Chrome Mobile:</strong> Yes</li>
+			<li><strong>IE Phone:</strong> No</li>
+			<li><strong>Opera Mobile:</strong> No</li>
+		</ul>
+
+		<h3>How do I do?</h3>
+		<p>In the browser we can access device data via two events:</p>
+		<ul>
+			<li><code>devicemotion</code> - Provides data regarding the acceleration and general movement the user is applying on the device.</li>
+			<li><code>deviceorientation</code> - Provides rotational data relevant to the orientation of the device.</li>
+		</ul>
+
+		<h4><code>devicemotion</code></h4>
+
+		<p>The <code>devicemotion</code> event provides both positional constants as well as acceleration rates,  so it's got a plethora of uses; not to mention some laptops that have motion sensors built in to protect hard drives and such will also be able to make use of it.</p>
+
+		<p>Most of the properties provided by the <code>devicemotion</code> event deal with the devices coordinate frame, which provides us with a 3d vector that contains data about the x, y and z axis.</p>
+
+		<img src="https://developer.mozilla.org/@api/deki/files/5694/=axes.png" />
+
+		<p>The event gives us the following properties to work with:</p>
+
+		<ul>
+			<li><code>acceleration</code> - A 3d vector containing the amount of acceleration recored by the device in meters per second squared on the x, y, and z axis. Compensates for the influence of gravity.</li>
+			<li><code>accelerationIncludingGravity</code> - A 3d vector containing the sums of <code>acceleration</code> and the acceleration caused by gravity.</li>
+			<li><code>rotationRate</code> - A rotational 3d vector containing the rate the device is rotating around each of its axes in degrees per second. Contains the alpha, beta, and gamma axis.</li>
+			<li><code>interval</code> - The interval data is being received from the device in milliseconds.</li>
+		</ul>
+
+		<h4><code>deviceorientation</code></h4>
+
+		<p>The <code>deviceorientation</code> event focuses on data received via the gyroscope, and exclusively contains rotational information about the devices orientation in the real world. This is extremely useful for simple translations of device orientation, such as determining whether or not a user is simply tilting their phone away from them or towards them.</p>
+
+		<p>The event provides the following properties containing rotational information in degrees:</p>
+		<ul>
+			<li>
+				<code>alpha</code> - Rotation around the z axis, or twisting the device.<br />
+				<img src="https://developer.mozilla.org/@api/deki/files/5695/=alpha.png" />
+			</li>
+			<li>
+				<code>beta</code> - Rotation around the x axis, or tipping the device away from or toward the user.<br />
+				<img src="https://developer.mozilla.org/@api/deki/files/5695/=beta.png" />
+			</li>
+			<li>
+				<code>gamma</code> - Rotation around the y axis, or tipping the device toward the left or right.<br />
+				<img src="https://developer.mozilla.org/@api/deki/files/5695/=gamma.png" />
+			</li>
+			<li><code>absolute</code> - Indicates whether or not the device is providing orientation data in reference to the Earth's coordinate frame or using an arbitrary frame determined by the device.</li>
+		</ul>
+
 		<h2>Examples</h2>
 		<nav>
 	  		<ul class="nav nav-pills nav-stacked">
