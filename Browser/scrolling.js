@@ -1,6 +1,6 @@
 (function (document, window) {
 	var useGyroscope = true,
-		slowScrollMin = 8,
+		slowScrollMin = 6.5,
 		slowScrollSpeed = 1.15,
 		velocity = 0.75,
 		rotation = {
