@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<title>Tilt-based Gallery</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <style>
+    	/* One day I'll move these into their own file */
+    	#log {
+  position: absolute;
+  color: #fff;
+  font-weight: bold;
+  z-index: 10000;
+}
+
+#images {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+#images > img {
+  position: absolute;
+  top: 0;
+  margin-left: 50%;
+  left: -175px;
+  max-width: 350px;
+  max-height: 263px;
+  box-shadow: 0px 3px 17px rgba(0,0,0,0.1);
+  height: auto;
+  opacity: 0.75;
+  -webkit-transition: opacity 250ms;
+  transition: opacity 250ms;
+}
+#images > img.active {
+  opacity: 1;
+}
+#images > img:nth-of-type(1) {
+  z-index: 100;
+}
+#images > img:nth-of-type(2) {
+  z-index: 95;
+}
+#images > img:nth-of-type(3) {
+  z-index: 90;
+}
+#images > img:nth-of-type(4) {
+  z-index: 85;
+}
+#images > img:nth-of-type(5) {
+  z-index: 80;
+}
+#images > img:nth-of-type(6) {
+  z-index: 75;
+}
+
+.throw-right {
+  -webkit-animation: throwRight 4s 1 forwards;
+          animation: throwRight 4s 1 forwards;
+}
+
+.throw-left {
+  -webkit-animation: throwLeft 4s 1 forwards;
+          animation: throwLeft 4s 1 forwards;
+}
+
+@-webkit-keyframes throwRight {
+  from {
+    -webkit-transform: translate(0, 0) rotate(0deg);
+            transform: translate(0, 0) rotate(0deg);
+  }
+  to {
+    -webkit-transform: translate(6000px, 150px) rotate(1200deg);
+            transform: translate(6000px, 150px) rotate(1200deg);
+  }
+}
+
+@keyframes throwRight {
+  from {
+    -webkit-transform: translate(0, 0) rotate(0deg);
+            transform: translate(0, 0) rotate(0deg);
+  }
+  to {
+    -webkit-transform: translate(6000px, 150px) rotate(1200deg);
+            transform: translate(6000px, 150px) rotate(1200deg);
+  }
+}
+@-webkit-keyframes throwLeft {
+  from {
+    -webkit-transform: translate(0, 0) rotate(0deg);
+            transform: translate(0, 0) rotate(0deg);
+  }
+  to {
+    -webkit-transform: translate(-6000px, 150px) rotate(-1200deg);
+            transform: translate(-6000px, 150px) rotate(-1200deg);
+  }
+}
+@keyframes throwLeft {
+  from {
+    -webkit-transform: translate(0, 0) rotate(0deg);
+            transform: translate(0, 0) rotate(0deg);
+  }
+  to {
+    -webkit-transform: translate(-6000px, 150px) rotate(-1200deg);
+            transform: translate(-6000px, 150px) rotate(-1200deg);
+  }
+}
+
+
+		.jumbotron+.jumbotron {
+			margin-top: -2rem;
+			-webkit-font-smoothing: antialised;
+		}
+
+		.jumbotron .blockquote {
+			border-left-color: #5bc0de;
+		}
+
+		.jumbotron .blockquote .m-b-0 {
+			font-size: 1.375rem;
+			font-weight: 300;
+		}
+
+		.jumbotron .blockquote-footer {
+			color: #ececec;
+			font-weight: 300;
+			font-size: 75%;
+		}
+    </style>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container">
+			<h1 class="display-3">Tilt-based Photo Gallery</h1>
+			<p class="lead">Fling to the left or right to throw the picture to the side. Fling back towards yourself to move backwards.</p>
+		</div>
+	</div>
+
+	<div class="jumbotron jumbotron-fluid bg-primary">
+		<div class="container">
+			<blockquote class="blockquote">
+				<p class="m-b-0 lead">&#128073; Gyroscopes &#128072; &#128588; &#128588; &#128591;</p>
+				<footer class="blockquote-footer">Mario <cite title="the Gyroscope Proclamation">overheard outside of a bar deep within the Mushroom Kingdom</cite>, circa 1997</footer>
+			</blockquote>
+		</div>
+	</div>
+
+	<div id="images">
+	  <img class="img active" src="https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg" />
+	  <img class="img" src="http://images.thesurge.com/app/uploads/2015/12/cat-.jpg?b87e3b" />
+	  <img class="img" src="http://thumb1.shutterstock.com/display_pic_with_logo/139051/302691488/stock-photo-funny-cats-self-picture-selfie-stick-in-his-hand-couple-of-cat-taking-a-selfie-together-with-302691488.jpg" />
+	  <img class="img" src="https://i.ytimg.com/vi/MveqXxB12YA/hqdefault.jpg" />
+	  <img class="img" src="http://www.tylerdrew.us/wp-content/uploads/2012/03/photo3.jpg" />
+	</div>
+
+	<div class="container">
+		<h2>What's going on here?</h2>
+		<p>
+			<em>Tl;dr: We're accessing the <code>deviceorientation</code> event that your devices gyroscope is triggering in your browser and using it's <code>event.beta</code> property to scroll the document via magic.</em>
+		</p>
+
+		<pre>
+			<code class="javascript">var scrollDelay = 8,
+    slowScrollSpeed = 1.15,
+    velocity = 0.75,
+    rotation = {
+        value: 0,
+        origin: false
+    };</code></pre>
+    <p>First off we've got to set up some variables to make things run smoothly. Since gyroscope data is only accessible from inside of one of the two device events, the only way other functions can access the data is via being passed them from inside of the event callback or by accessing them directly from a more globally scoped variable. In this instance, we're going with the latter. We also want to define a scroll delay so the user can have a small buffer zone before the screen starts moving and a scroll speed and velocity force for  smoothness.</p>
+<pre>
+<code class="javascript">// Fires every time the device provides data to the browser
+window.addEventListener("deviceorientation", function (event) {
+    . . .
+});</code></pre>
+
+        <p>There are numerous ways we can achieve this, and both the <code>deviceorientation</code> and <code>devicemotion</code> events could be useful depending on which way you'd like to move forward. In this instance we're using the <code>deviceorientation</code> event for ease of use as it gives us a rotational value that's much easier to work with compared to the acceleration values provided by <code>devicemotion</code>.</p>
+
+        <pre><code class="javascript">window.addEventListener("deviceorientation", function (event) {
+    var axis = event.beta, // cache the relevant gyro info
+        difference;
+
+    // If we haven't set the origin yet, do it up dawg
+    if (!rotation.origin) {
+        rotation.origin = axis;
+    }
+
+    // Get the difference between origin and the reported data
+    difference = rotation.origin - axis;
+
+    if (difference > scrollDelay) {
+        // If the difference is greater than the minimum, scroll down
+        rotation.value += slowScrollSpeed;
+    } else if (difference < -scrollDelay) {
+        // If the difference is less than the inverse of the minimum, scroll up
+        rotation.value -= slowScrollSpeed;
+    }
+});</code></pre>
+
+<p>First off, we cache the beta axis of the event since we'll be using it quite a bit. Then, we check to see if an origin has already been set, setting one if it hasn't. Once we can verify that we have an origin, we can get the difference of the origin and beta axis and use that to determine whether or not we should scroll the users viewport. Since higher values correspond to rotating the phone away from you, if the difference is greater than our delay buffer we should scroll the user down the page. If it's less than the delay, then we move up.</p>
+
+<pre><code class="javascript">window.addEventListener("deviceorientation", function (event) {
+    . . .
+
+    // Apply a velocity force to the value to smooth things out
+    rotation.value *= velocity;
+
+    // Scroll the window by the current rotation value
+    // (either slowScrollMin * velocity or -slowScrollMin * velocity)
+    window.scrollBy(0, rotation.value);
+});</code></pre>
+
+        <p>Once we've determined whether or not we should be scrolling the page, we apply the velocity to our rotation value. This should be below 1, as that will allow us to gradually increase or decrease the users speed and smooth out the interaction. We can then call the <code>window.scrollBy()</code> method and tell it to move the y axis by our rotational value and bask in the glory that is seemingly-magic scrolling.</p>
+
+        <h3>Things to note</h3>
+
+        <p>As I said earlier, there are tons of different ways to achieve this. You could take the <code>event.accelerationIncludingGravity</code> property from the <code>devicemotion</code> event and do a similar thing however the axis that we're interested gets sort of shared between Y and Z, so you'd have to do a little bit more calculations to get it to work properly.</p>
+
+        <p>You could also make use of the <code>event.rotationRate</code> property from <code>devicemotion</code>, however not only does it add a new layer of complexity as you then have to manage constantly changing rates and their directions to determine what event is actually happening, but it is vastly inconsistent across devices and browsers. What is smooth and working great on iOS could very easily be incredibly choppy and downright unusable on Android.</p>
+
+		<nav>
+        <p><a href="../../index.html">&laquo; Go back to the main page</a></p>
+
+		<h2>Other Examples</h2>
+	  		<ul class="nav nav-pills nav-stacked">
+	  			<li class="nav-item">
+	  				<a href="../logger/" class="nav-link">Gyroscope Data Logger</a>
+	  			</li>
+	  			<li class="nav-item">
+	  				<a href="../scrolling/" class="nav-link">Tilt-Based Page Scrolling</a>
+	  			</li>
+	  			<!-- <li class="nav-item">
+	  				<a href="#" class="nav-link">360-Gif</a>
+	  			</li> -->
+	  		</ul>
+	  	</nav>
+  	</div>
+
+  	<div id="controller">
+	  <button id="toggleScrolling" value="false">
+	    Gyroscope On
+	  </button>
+	  <button id="resetOrigin">
+	    Reset Origin
+	  </button>
+	</div>
+
+    <script src="../scrolling.js"></script>
+  </body>
+</html>
