@@ -162,69 +162,100 @@
 	</div>
 
 	<div class="container">
-		<h2>What's going on here?</h2>
+		<h2>Wot u doin m8?</h2>
 		<p>
-			<em>Tl;dr: We're accessing the <code>deviceorientation</code> event that your devices gyroscope is triggering in your browser and using it's <code>event.beta</code> property to scroll the document via magic.</em>
+			<em>Tl;dr: We're grabbing the <code>event.rotationRate</code> property from the <code>devicemotion</code> and flinging images to either side depending on whether or not the rates are greater than a certain value.</em>
 		</p>
 
 		<pre>
-			<code class="javascript">var scrollDelay = 8,
-    slowScrollSpeed = 1.15,
-    velocity = 0.75,
-    rotation = {
-        value: 0,
-        origin: false
-    };</code></pre>
-    <p>First off we've got to set up some variables to make things run smoothly. Since gyroscope data is only accessible from inside of one of the two device events, the only way other functions can access the data is via being passed them from inside of the event callback or by accessing them directly from a more globally scoped variable. In this instance, we're going with the latter. We also want to define a scroll delay so the user can have a small buffer zone before the screen starts moving and a scroll speed and velocity force for  smoothness.</p>
+			<code class="javascript">var $images = document.getElementsByClassName('img'),
+  cooldown = false,
+  active = {},
+  bufferX, bufferY;
+  
+if (/Android/i.test(navigator.userAgent)) {
+    bufferX = 2;
+    bufferY = 3;
+} else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    bufferX = 80;
+    bufferY = 70;
+}</code></pre>
+    <p>As always, we start just by setting up some variables that we can access later. Note the difference in buffers between android and iphone. It helps to take a look at some sort of real-time data logger (oh hey, there's one right <a href="../logger/">here</a>) on different devices when trying to determine buffers as the values provided by different devices can vary drastically. In this instance, Android is providing a much lower value than iPhone, which is seemingly more sensitive.</p>
 <pre>
-<code class="javascript">// Fires every time the device provides data to the browser
-window.addEventListener("deviceorientation", function (event) {
-    . . .
-});</code></pre>
+<code class="javascript">window.addEventListener("devicemotion", function (event) {
+    var rotation  = event.rotationRate;
+    
+    if (!cooldown) {
+    // If the beta axis is greater than our buffer, throw right
+      if (rotation.beta > bufferX) {
+        throwImage('right');
+        getNextImage(1);
+      }
 
-        <p>There are numerous ways we can achieve this, and both the <code>deviceorientation</code> and <code>devicemotion</code> events could be useful depending on which way you'd like to move forward. In this instance we're using the <code>deviceorientation</code> event for ease of use as it gives us a rotational value that's much easier to work with compared to the acceleration values provided by <code>devicemotion</code>.</p>
+      // If the beta axis is less than our buffer, throw left
+      if (rotation.beta < -bufferX) {
+        throwImage('left');
+        getNextImage(1);
+      }
 
-        <pre><code class="javascript">window.addEventListener("deviceorientation", function (event) {
-    var axis = event.beta, // cache the relevant gyro info
-        difference;
-
-    // If we haven't set the origin yet, do it up dawg
-    if (!rotation.origin) {
-        rotation.origin = axis;
-    }
-
-    // Get the difference between origin and the reported data
-    difference = rotation.origin - axis;
-
-    if (difference > scrollDelay) {
-        // If the difference is greater than the minimum, scroll down
-        rotation.value += slowScrollSpeed;
-    } else if (difference < -scrollDelay) {
-        // If the difference is less than the inverse of the minimum, scroll up
-        rotation.value -= slowScrollSpeed;
+      // If the alpha axis is greater than our buffer, retrieve an image
+      if (rotation.alpha > bufferY) {
+        retrieveImage();
+      }
     }
 });</code></pre>
 
-<p>First off, we cache the beta axis of the event since we'll be using it quite a bit. Then, we check to see if an origin has already been set, setting one if it hasn't. Once we can verify that we have an origin, we can get the difference of the origin and beta axis and use that to determine whether or not we should scroll the users viewport. Since higher values correspond to rotating the phone away from you, if the difference is greater than our delay buffer we should scroll the user down the page. If it's less than the delay, then we move up.</p>
+        <p>Since we don't need any constants and our functionality is based solely on movement/acceleration rates, we opt in this case for using the <code>devicemotion</code> events <code>event.rotationRate</code> property. It will give us an accurate representation of the acceleration forces being applied to the device in real-time, so we can just toss the axis we want against a simple buffer check to determine whether or not we need to be flinging an image to a direction.</p>
 
-<pre><code class="javascript">window.addEventListener("deviceorientation", function (event) {
-    . . .
+        <pre><code class="javascript">var getNextImage = function(i) {
+    if (!active.hasOwnProperty('index')) {
+      active.index = 0;
+    } else {
+      active.index = Math.min(Math.max(active.index + i, 0), $images.length - 1);
+    }
 
-    // Apply a velocity force to the value to smooth things out
-    rotation.value *= velocity;
+    active.img = $images[active.index];
+    if (i > 0) {
+      active.img.classList.add('active');
+    } else {
+      active.img.classList.remove('active');
+    }
+};</code></pre>
 
-    // Scroll the window by the current rotation value
-    // (either slowScrollMin * velocity or -slowScrollMin * velocity)
-    window.scrollBy(0, rotation.value);
-});</code></pre>
+<p>From there we can just set up some utility functions to move ourselves through our array of images. Here we're just incrementing the active index and grabbing the correct image for that index.</p>
 
-        <p>Once we've determined whether or not we should be scrolling the page, we apply the velocity to our rotation value. This should be below 1, as that will allow us to gradually increase or decrease the users speed and smooth out the interaction. We can then call the <code>window.scrollBy()</code> method and tell it to move the y axis by our rotational value and bask in the glory that is seemingly-magic scrolling.</p>
+<pre><code class="javascript">var throwImage = function (direction) {
+    active.img.classList.add('throw-'+direction);
+    active.img.classList.remove('active');
+    cooldown = true;
+
+    window.setTimeout(function() {
+      cooldown = false;
+    }, 1000);
+};</code></pre>
+
+        <p>Whenever we need to throw something in either direction, all we're doing is applying a class that has a CSS3 animation assigned to it. This could be done in JavaScript as well for cooler and more complex effects, however for the purpose of this demo this will suffice.</p>
+
+        <p>Do note however the setting of a timeout to clear our cooldown; this is necessary to prevent us from going through the entire queue in one fling. Since the event fires constantly if we switch to the next index without setting a cooldown up to stop the parsing of events, it'll just keep throwing an image every frame.</p>
+
+<pre><code class="javascript">var retrieveImage = function () {
+    getNextImage(-1);
+    active.img.classList.remove('throw-right', 'throw-left');
+    active.img.classList.add('active');
+    cooldown = true;
+
+    window.setTimeout(function() {
+      cooldown = false;
+    }, 1000);
+};</code></pre>
+
+    <p>This is just essentially a step-back utility function that allows the user to traverse through our queue ba ckwards. We set it to grab the last image, then remove the animation classes and toss an active class onto it. Since this is also a queue traversal, we want to set a timeout here as well so the user doesn't accidentally move all the way through the queue due to one movement.</p>
 
         <h3>Things to note</h3>
 
-        <p>As I said earlier, there are tons of different ways to achieve this. You could take the <code>event.accelerationIncludingGravity</code> property from the <code>devicemotion</code> event and do a similar thing however the axis that we're interested gets sort of shared between Y and Z, so you'd have to do a little bit more calculations to get it to work properly.</p>
+        <p>Like I mentioned near the top of the page, different devices report motion data to the browser in very different ways. When it comes to properties such as acceleration you're generally going to see a pretty similar value, however with rotational data on one device you can see rates that are seemingly hypersensitive and on another device you'll find those same rates are far calmer. For example on a Galaxy S5, I was seeing rotational rates closer to 0, with harsh movements peaking at around +/- 5, while on an iPhone 6 the same movements would generate a rotational rate of closer to +/- 100.</p>
 
-        <p>You could also make use of the <code>event.rotationRate</code> property from <code>devicemotion</code>, however not only does it add a new layer of complexity as you then have to manage constantly changing rates and their directions to determine what event is actually happening, but it is vastly inconsistent across devices and browsers. What is smooth and working great on iOS could very easily be incredibly choppy and downright unusable on Android.</p>
+        <p>It's also worth noting that for events that need to fire more sequentially, you'll need to implement some sort of throttle so you can limit the actions that occur due to a movement. As I've mentioned, the events fire extremely quickly and without some sort of throttler it would make functionality like we're achieving here extremely difficult (if not unusable) for the end user.</p>
 
 		<nav>
         <p><a href="../../index.html">&laquo; Go back to the main page</a></p>
@@ -237,9 +268,9 @@ window.addEventListener("deviceorientation", function (event) {
 	  			<li class="nav-item">
 	  				<a href="../scrolling/" class="nav-link">Tilt-Based Page Scrolling</a>
 	  			</li>
-	  			<!-- <li class="nav-item">
-	  				<a href="#" class="nav-link">360-Gif</a>
-	  			</li> -->
+	  			<li class="nav-item">
+	  				<a href="../photogallery/" class="nav-link">Throw-away Photo Gallery</a>
+	  			</li>
 	  		</ul>
 	  	</nav>
   	</div>

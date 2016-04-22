@@ -1,6 +1,5 @@
 (function (document, window) {
-  var thrown = [],
-      $images = document.getElementsByClassName('img'),
+  var $images = document.getElementsByClassName('img'),
       cooldown = false,
       active = {},
       bufferX, bufferY;
